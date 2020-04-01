@@ -9,6 +9,8 @@ log = logging.getLogger(__name__)
 
 class Sprite:
     scale = 1.0
+    start_frame_index = 1
+    frame_period = 100
 
     def __init__(self, renderer):
         self._renderer = renderer
@@ -16,6 +18,8 @@ class Sprite:
         self._state = None
         self._state_kwargs = dict()
         self._frame_index = 0
+        self._frame_period = self.frame_period
+        self._last_tick = pygame.time.get_ticks()
 
         self.x = 0
         self.y = 0
@@ -28,7 +32,7 @@ class Sprite:
     def __getattr__(self, key):
         if key in self.actions:
             return lambda: self.set_state(key)
-        return self.get(key)
+        return getattr(self, key)
 
     def is_collide_point(self, x, y):
         rect = self._frame_image.get_rect()
@@ -36,20 +40,24 @@ class Sprite:
         return rect.collidepoint(x, y)
     
     def _load(self):
-        for action_name, action_value in self.actions.items():
+        for action, action_val in self.actions.items():
             images = list()
-            i = 1
+            i = self.start_frame_index
             while True:
                 try:
                     img = pygame.image.load(
-                        os.path.join(config['ASSETS_DIR'], self.assets_location, f'{action_name}_{i}.png')
+                        os.path.join(
+                            config['ASSETS_DIR'],
+                            self.assets_location,
+                            action_val['assets_format'].format(i))
                     )
                 except pygame.error as e:
                     break
-                img = pygame.transform.scale(img, (int(img.get_width() * self.scale), int(img.get_height() * self.scale), ))
+                size = [int(s * self.scale) for s in img.get_size()]
+                img = pygame.transform.scale(img, size)
                 images.append(img)
                 i += 1
-            self._animation.update({action_name: images})
+            self._animation.update({action: images})
 
     def set_state(self, state, **kwargs):
         self._frame_index = 0
@@ -70,6 +78,12 @@ class Sprite:
         if not self._animation_flag:
             return
 
+        now = pygame.time.get_ticks()
+        if now - self._last_tick < self._frame_period:
+            return
+
+        self._last_tick = now
+
         self._frame_index += 1
         if self._frame_index >= len(self._animation.get(self._state)):
             self._frame_index = 0         
@@ -88,6 +102,7 @@ class Sprite:
         if self._animation_flag:
             images = self._animation.get(self._state)
             self._frame_image = images[self._frame_index]
+            self._frame_period = self.actions.get(self._state, {}).get('frame_period', self.frame_period)
 
 
 class Character(Sprite):

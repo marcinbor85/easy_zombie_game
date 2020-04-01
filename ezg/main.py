@@ -26,14 +26,14 @@ def run():
     woman = ZombieFemale(renderer)
     woman.set_position(300, 100)
 
-    woman2 = ZombieFemale(renderer)
-    woman2.set_position(500, 100)
+    z1 = Zombie1(renderer)
+    z1.set_position(100, 300)
 
-    girl = HumanGirl(renderer)
-    girl.set_position(100, 400)
+    z2 = Zombie2(renderer)
+    z2.set_position(300, 300)
 
-    boy = HumanBoy(renderer)
-    boy.set_position(300, 400)
+    z3 = Zombie3(renderer)
+    z3.set_position(500, 300)
 
     while not done:
         for event in pygame.event.get():
@@ -49,25 +49,17 @@ def run():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_i:
                 man.idle()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
-                boy.idle()
+                z1.idle()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
-                boy.run()
+                z1.run()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_t:
-                boy.walk()
+                z1.walk()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_y:
-                boy.jump()
+                z1.attack()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_u:
-                boy.dead()
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_a:
-                girl.idle()
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
-                girl.run()
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_d:
-                girl.walk()
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
-                girl.jump()
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_g:
-                girl.dead()
+                z1.dead()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_o:
+                z1.hurt()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
                 if man.is_collide_point(x, y):

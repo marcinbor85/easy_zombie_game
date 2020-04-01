@@ -4,13 +4,22 @@ from ezg.engine.actor import Character, Sprite
 
 class Zombie(Character):
     scale = 0.3
-    actions = {
-        'attack': {},
-        'dead': {},
-        'idle': {},
-        'walk': {},
-    }
     init_state = 'idle'
+    frame_period = 30
+    actions = {
+        'attack': {
+            'assets_format': 'Attack ({}).png',
+        },
+        'dead': {
+            'assets_format': 'Dead ({}).png',
+        },
+        'idle': {
+            'assets_format': 'Idle ({}).png',
+        },
+        'walk': {
+            'assets_format': 'Walk ({}).png',
+        },
+    }
 
     def attack(self):
         self.set_state('attack', state_after='idle')
@@ -24,25 +33,45 @@ class ZombieMale(Zombie):
 class ZombieFemale(Zombie):
     assets_location = 'zombie/female'
 
-class Human(Sprite):
+class ZombieOther(Character):
     scale = 0.3
-    actions = {
-        'jump': {},
-        'dead': {},
-        'idle': {},
-        'run': {},
-        'walk': {},
-    }
     init_state = 'idle'
+    actions = {
+        'attack': {
+            'assets_format': 'Attack{}.png',
+        },
+        'dead': {
+            'assets_format': 'Dead{}.png',
+        },
+        'idle': {
+            'assets_format': 'Idle{}.png',
+            'frame_period': 1000
+        },
+        'walk': {
+            'assets_format': 'Walk{}.png',
+        },
+        'hurt': {
+            'assets_format': 'Hurt{}.png',
+        },
+        'run': {
+            'assets_format': 'Run{}.png',
+        },
+    }
 
-    def jump(self):
-        self.set_state('jump', state_after='idle')
+    def attack(self):
+        self.set_state('attack', state_after='idle')
+
+    def hurt(self):
+        self.set_state('hurt', state_after='idle')
 
     def dead(self):
-        self.set_state('dead', stop_after=True)
+        self.set_state('dead', stop_after=True)  
 
-class HumanGirl(Human):
-    assets_location = 'human/girl'
+class Zombie1(ZombieOther):
+    assets_location = 'zombie/Zombie1'
 
-class HumanBoy(Human):
-    assets_location = 'human/boy'
+class Zombie2(ZombieOther):
+    assets_location = 'zombie/Zombie2'
+
+class Zombie3(ZombieOther):
+    assets_location = 'zombie/Zombie3'

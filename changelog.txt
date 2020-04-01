@@ -7,3 +7,5 @@ TODO:
     * some background images
     * scene graphics update optimalisation
     * game statistics
+    * adjustable animation speed
+    * customizable assets file format
