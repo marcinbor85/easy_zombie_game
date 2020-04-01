@@ -1,6 +1,6 @@
 import os
 import sys
-from setuptools import setup
+from setuptools import setup, find_packages
 
 from ezg import __version__, __appname__, __description__
 
@@ -19,11 +19,8 @@ setup(
     license = "MIT",
     keywords = "zombie python pygame sdl framework game",
     url = "https://github.com/marcinbor85/easy_zombie_game",
-    packages = [
-        'ezg',
-        'ezg.engine',
-        'ezg.game'
-    ],
+    packages = find_packages(exclude=['tests', 'tests.*']),
+    include_package_data = True,
     long_description = read('DESCRIPTION'),
     install_requires = [
         "pygame==2.0.0.dev6",

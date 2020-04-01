@@ -1,3 +1,5 @@
+import os
+
 from ezg.engine.actor import Character, Sprite
 
 class Zombie(Character):
@@ -17,10 +19,10 @@ class Zombie(Character):
         self.set_state('dead', stop_after=True)  
 
 class ZombieMale(Zombie):
-    assets_location = 'assets/zombie/male'
+    assets_location = 'zombie/male'
 
 class ZombieFemale(Zombie):
-    assets_location = 'assets/zombie/female'
+    assets_location = 'zombie/female'
 
 class Human(Sprite):
     scale = 0.3
@@ -40,7 +42,7 @@ class Human(Sprite):
         self.set_state('dead', stop_after=True)
 
 class HumanGirl(Human):
-    assets_location = 'assets/human/girl'
+    assets_location = 'human/girl'
 
 class HumanBoy(Human):
-    assets_location = 'assets/human/boy'
+    assets_location = 'human/boy'

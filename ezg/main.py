@@ -1,6 +1,7 @@
-import pygame
-
+import os
 import logging
+
+import pygame
 
 from ezg.engine.scene import Renderer
 from ezg.game.figure import *

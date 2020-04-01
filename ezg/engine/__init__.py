@@ -1,0 +1,4 @@
+
+config = {
+    'ASSETS_DIR': ''
+}

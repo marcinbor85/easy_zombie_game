@@ -1,6 +1,8 @@
 import os
 import logging
 
+from . import config
+
 import pygame
 
 log = logging.getLogger(__name__)
@@ -40,7 +42,7 @@ class Sprite:
             while True:
                 try:
                     img = pygame.image.load(
-                        os.path.join(self.assets_location, f'{action_name}_{i}.png')
+                        os.path.join(config['ASSETS_DIR'], self.assets_location, f'{action_name}_{i}.png')
                     )
                 except pygame.error as e:
                     break
