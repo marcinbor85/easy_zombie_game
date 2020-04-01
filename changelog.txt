@@ -1,4 +1,9 @@
 TODO:
-    * one-time load assests (sprites assets load from buffer, not from files)
+    * loading assests optimalisation
     * sprites interactions
     * some game-dependents logic
+    * more advanced events management
+    * more advanced game main loop
+    * some background images
+    * scene graphics update optimalisation
+    * game statistics
