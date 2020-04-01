@@ -1,0 +1,4 @@
+TODO:
+    * one-time load assests (sprites assets load from buffer, not from files)
+    * sprites interactions
+    * some game-dependents logic
